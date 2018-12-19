@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.MenuMapper">
+
+    <select id="queryAllParentMenu" resultType="Menu">
+        select * from menu where parent_id IS NULL
+    </select>
+
+    <select id="queryAllChildrenByPid" parameterType="Integer" resultType="Menu">
+        select * from menu where parent_id=#{pid}
+    </select>
+
+</mapper>
