@@ -2,7 +2,7 @@
 <configuration>
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern> [%p] %d{yyyy-MM-dd HH:mm:ss} %m %n</pattern>
+            <pattern>[%p] %d{yyyy-MM-dd HH:mm:ss} %m %n</pattern>
         </layout>
     </appender>
     <root level="info">

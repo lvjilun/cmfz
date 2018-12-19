@@ -13,12 +13,14 @@ import java.util.List;
 public class MenuController {
     @Autowired
     private MenuService menuService;
+
     @RequestMapping("queryAllParentMenu")
-    public List<Menu> queryAllParentMenu(){
+    public List<Menu> queryAllParentMenu() {
         return menuService.queryAllParentMenu();
     }
+
     @RequestMapping("queryAllchildrenByPid")
-    public List<Menu> queryAllchildrenByPid(Integer pid){
+    public List<Menu> queryAllchildrenByPid(Integer pid) {
         return menuService.queryAllChildrenByPid(pid);
     }
 }
