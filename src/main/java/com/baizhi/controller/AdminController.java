@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -24,14 +25,18 @@ public class AdminController {
 
     @RequestMapping("loginAdmin")
     public @ResponseBody
-    void loginAdmin(Admin admin, String enCode, HttpSession session) {
+    ModelAndView loginAdmin(Admin admin, String enCode, HttpSession session, ModelAndView mav) {
         boolean b = adminService.loginAdmin(admin, enCode, session);
+        mav.setViewName("redirect:/back/main/main.jsp");
+        return mav;
     }
 
     @RequestMapping("logoutAdmin")
-    public String logoutAdmin(HttpSession session) {
+    public @ResponseBody
+    ModelAndView logoutAdmin(HttpSession session, ModelAndView mav) {
         session.removeAttribute("loginAdmin");
         session.invalidate();
-        return "redirect:login.jsp";
+        mav.setViewName("redirect:/back/login.jsp");
+        return mav;
     }
 }

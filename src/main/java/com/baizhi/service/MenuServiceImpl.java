@@ -5,9 +5,11 @@ import com.baizhi.entity.Menu;
 import com.baizhi.mapper.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class MenuServiceImpl implements MenuService {
     @Autowired

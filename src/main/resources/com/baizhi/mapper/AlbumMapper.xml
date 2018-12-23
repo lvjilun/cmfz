@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.AlbumMapper">
+    <resultMap id="pc01" type="Album">
+        <id column="aid" property="id"></id>
+        <result column="atitle" property="title"></result>
+        <result column="score" property="score"></result>
+        <result column="broadcast" property="broadcast"></result>
+        <result column="counts" property="counts"></result>
+        <result column="pubDate" property="pubDate"></result>
+        <result column="description" property="description"></result>
+        <result column="albumImage" property="albumImage"></result>
+        <result column="author" property="author"></result>
+        <collection property="children" ofType="Chapter">
+            <id column="bid" property="id"/>
+            <result column="btitle" property="title"/>
+            <result column="size" property="size"/>
+            <result column="duration" property="duration"/>
+            <result column="downloadUrl" property="downloadUrl"/>
+            <result column="uploadDate" property="uploadDate"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryAllAlbum" resultMap="pc01">
+        	select a.id aid,a.title atitle,a.score,a.broadcast,a.counts,a.pub_date pubDate,
+                   a.description,a.album_image albumImage,a.author,
+                   b.id bid,b.title btitle,b.size,b.duration,b.download_url downloadUrl,
+                   b.upload_date uploadDate
+                   from (select  * from album  order by id desc limit ${(page-1)*rows},${rows}) a
+		           left join chapters b on a.id=b.album_id
+    </select>
+
+    <select id="queryOneAlbumById" parameterType="Integer" resultMap="pc01">
+    select  a.id aid,a.title atitle,a.score,a.broadcast,a.counts,a.pub_date pubDate,
+                a.description,a.album_image albumImage,a.author,
+                b.id bid,b.title btitle,b.size,b.duration,b.download_url downloadUrl,
+                b.upload_date uploadDate
+                from album a left join chapters b on a.id=b.album_id
+				where a.id=#{id} order by a.id desc
+    </select>
+
+</mapper>
