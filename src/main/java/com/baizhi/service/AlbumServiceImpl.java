@@ -21,7 +21,8 @@ public class AlbumServiceImpl implements AlbumService {
     public AlbumPageDto queryAllAlbum(int page, int rows) {
         AlbumPageDto apd = new AlbumPageDto();
         List<Album> albumList = albumMapper.queryAllAlbum(page, rows);
-        System.out.println(albumList);
+//        PageInfo<Album> pageInfo = new PageInfo<>(albumList);
+//        long total = pageInfo.getTotal();
         apd.setRows(albumList);
         apd.setTotal(albumMapper.selectCount(new Album()));
         return apd;
@@ -45,5 +46,10 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<Album> queryAllAlbumSelect() {
         return albumMapper.selectAll();
+    }
+
+    @Override
+    public List<Album> queryAllAlbumAndChapter() {
+        return albumMapper.queryAllAlbumAndChapter();
     }
 }

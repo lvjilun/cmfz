@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.UserMapper">
+    <select id="selectCountByRegDate" parameterType="Integer" resultType="Integer">
+        select count(*) from user where DATEDIFF(NOW(),reg_date) &lt; #{number};
+    </select>
+
+    <select id="queryAllUserByProvice" resultType="Province">
+        select province as name ,count(*) as value  from user group by province
+    </select>
+</mapper>

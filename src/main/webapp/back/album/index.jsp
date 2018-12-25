@@ -38,6 +38,24 @@
             onLoadSuccess: function () {
                 // $('#showAllAlbumTable').treegrid("collapseAll");
                 // $('#showAllAlbumTable').treegrid("expand");
+            },
+            onDblClickRow: function (row) {
+                if (row.children == null) {
+                    $("#doubleClickPlayDialog").dialog({
+                        title: "自动播放",
+                        width: 400,
+                        height: 200,
+                        closed: true
+                    });
+                    $("#doubleClickPlayDialog").dialog("open");
+                    $("#audio_url").prop("src", "${pageContext.request.contextPath}/music/" + row.downloadUrl)
+                } else {
+                    $.messager.show({
+                        title: '系统提示',
+                        msg: '你选择的不是章节，请选择章节哟~',
+                        showType: 'slide'
+                    });
+                }
             }
         })
         $("#showOneAlbumBtn").linkbutton({
@@ -87,16 +105,28 @@
         $("#downloadChapterBtn").linkbutton({
             onClick: function () {
                 var result = $("#showAllAlbumTable").treegrid("getSelected");
-                console.log(result.downloadUrl);
-                if (result.children == null) {
-                    location.href = "${pageContext.request.contextPath}/chapter/downloadChapter?url=" + result.downloadUrl
+                if (result != null) {
+                    if (result.children == null) {
+                        location.href = "${pageContext.request.contextPath}/chapter/downloadChapter?url=" + result.downloadUrl
+                    } else {
+                        $.messager.show({
+                            title: '系统提示',
+                            msg: '你选择的不是章节，请选择章节哟~',
+                            showType: 'slide'
+                        });
+                    }
                 } else {
                     $.messager.show({
                         title: '系统提示',
-                        msg: '你选择的不是章节，请选择章节哟~',
+                        msg: '您还未选择，请选择章节哟~',
                         showType: 'slide'
                     });
                 }
+            }
+        })
+        $("#downloadXlsBtn").linkbutton({
+            onClick: function () {
+                location.href = "${pageContext.request.contextPath}/album/downloadAlbum";
             }
         })
     })
@@ -140,6 +170,7 @@
     <a id="addOneAlbumBtn" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">专辑添加</a>
     <a id="addOneChapterBtn" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true">章节添加</a>
     <a id="downloadChapterBtn" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true">音频下载</a>
+    <a id="downloadXlsBtn" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true">表格导出</a>
 </div>
 <%--专辑详情展示页面--%>
 <div id="showOneAlbumDialog"></div>
@@ -147,3 +178,11 @@
 <div id="addOneAlbumDialog"></div>
 <%--添加章节页面--%>
 <div id="addOneChapterDialog"></div>
+<%--（上传）导入章节数据页面--%>
+<div id="uploadChapterDialog"></div>
+<%--双击自动播放页面--%>
+<div id="doubleClickPlayDialog">
+    <audio id="audio_url" src="" controls="controls" autoplay="autoplay" loop="loop">
+
+    </audio>
+</div>

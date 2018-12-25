@@ -13,4 +13,6 @@ public interface AlbumService {
     public Boolean addOneAlbum(Album album);
 
     public List<Album> queryAllAlbumSelect();
+
+    public List<Album> queryAllAlbumAndChapter();
 }

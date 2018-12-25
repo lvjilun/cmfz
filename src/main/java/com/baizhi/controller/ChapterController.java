@@ -52,8 +52,9 @@ public class ChapterController {
     @RequestMapping("/downloadChapter")
     public void downloadChapter(String url, HttpSession session, HttpServletResponse response) throws Exception {
         String path = session.getServletContext().getRealPath("/music");
-        File file = new File(path + "\\" + url);
+        //File file = new File(path + "\\" + url);
         response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(url, "UTF-8"));
+        response.setContentType("audio/mpeg");
         //读取要下载的文件，保存到文件输入流
         FileInputStream in = new FileInputStream(path + "\\" + url);
         //创建输出流

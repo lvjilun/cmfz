@@ -39,4 +39,13 @@
 				where a.id=#{id} order by a.id desc
     </select>
 
+    <select id="queryAllAlbumAndChapter" resultMap="pc01">
+    select  a.id aid,a.title atitle,a.score,a.broadcast,a.counts,a.pub_date pubDate,
+                a.description,a.album_image albumImage,a.author,
+                b.id bid,b.title btitle,b.size,b.duration,b.download_url downloadUrl,
+                b.upload_date uploadDate
+                from album a left join chapters b on a.id=b.album_id
+				order by a.id desc
+    </select>
+
 </mapper>

@@ -10,4 +10,6 @@ public interface AlbumMapper extends Mapper<Album> {
     public List<Album> queryAllAlbum(@Param("page") int pageNum, @Param("rows") int pageSize);
 
     public Album queryOneAlbumById(Integer id);
+
+    public List<Album> queryAllAlbumAndChapter();
 }
